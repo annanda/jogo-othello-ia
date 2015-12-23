@@ -29,15 +29,15 @@ class Heuristic1Player(object):
 
         return heuristic
 
-    def build_game_tree(self, board):
-        valid_moves = board.valid_moves(self.color)
-        heuristic = 0
-        chosen_move = []
-        for valid_move in valid_moves:
-            board_copy = copy.deepcopy(board)
-            move = Move(valid_move)
-            board_copy.play(move, self.color)
-            heuristic_value = heuristic_value(board_copy, self.color)
-            if(heuristic_value > heuristic):
-                heuristic = heuristic_value
-                chosen_move = move
+    # def build_game_tree(self, board):
+    #     valid_moves = board.valid_moves(self.color)
+    #     heuristic = 0
+    #     chosen_move = []
+    #     for valid_move in valid_moves:
+    #         board_copy = copy.deepcopy(board)
+    #         move = Move(valid_move)
+    #         board_copy.play(move, self.color)
+    #         heuristic_value = heuristic_value(board_copy, self.color)
+    #         if(heuristic_value > heuristic):
+    #             heuristic = heuristic_value
+    #             chosen_move = move
