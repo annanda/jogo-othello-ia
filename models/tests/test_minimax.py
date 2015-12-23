@@ -2,7 +2,7 @@
 import unittest
 from collections import namedtuple
 
-from mock import patch, Mock
+from mock import patch, Mock, call as mock_call
 
 from models import minimax_alfabeta
 
@@ -296,3 +296,31 @@ class TestMiniMax(unittest.TestCase):
         )
         expected_best_value = 12
         self.assertEqual(expected_best_value, best_value)
+
+    @patch('models.minimax_alfabeta.Move', Mock())
+    def test_heuristic_function_is_called_in_right_order(self):
+
+        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_function = Mock(side_effect=heuristic_values)
+
+        depth = 3
+
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+
+        best_value = mini_max.mini_max_alfa_beta(
+            self.board_3,
+            depth,
+            'color',
+            float('-inf'),
+            float('inf'),
+            True,
+            heuristic_function
+        )
+        calls_list = [
+            mock_call(self.leaf_boards[0], 'color'),
+            mock_call(self.leaf_boards[1], 'color'),
+            mock_call(self.leaf_boards[2], 'color'),
+            mock_call(self.leaf_boards[4], 'color'),
+            mock_call(self.leaf_boards[5], 'color'),
+        ]
+        heuristic_function.assert_has_calls(calls_list, any_order=False)
