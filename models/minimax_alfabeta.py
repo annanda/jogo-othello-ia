@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from models.move import Move
 
+
 class MiniMaxAlfaBeta(object):
 
     def __init__(self, max_depth):
@@ -22,7 +23,6 @@ class MiniMaxAlfaBeta(object):
         enemy_color = board._opponent(color)
         for valid_move in valid_moves:
             board_copy = board.get_clone()
-            # move = Move(valid_move)
             board_copy.play(valid_move, color)
             best_value = self.mini_max_alfa_beta(
                 board_copy,
@@ -49,7 +49,3 @@ class MiniMaxAlfaBeta(object):
         if depth == self.max_depth:
             self.chosen_move = best_move
         return my_best_value
-
-
-
-

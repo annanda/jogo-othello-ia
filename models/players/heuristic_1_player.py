@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-import copy
-from models.move import Move
-from models.board import Board as board
 from models.minimax_alfabeta import MiniMaxAlfaBeta
 
 
@@ -16,6 +13,7 @@ def heuristic_value(board, color):
                 heuristic += 1
 
     return heuristic
+
 
 class Heuristic1Player(object):
     """Implementa a herística que leva em conta a
@@ -37,19 +35,5 @@ class Heuristic1Player(object):
         )
 
         return minimax.chosen_move
-
-
-    # def build_game_tree(self, board):
-    #     valid_moves = board.valid_moves(self.color)
-    #     heuristic = 0
-    #     chosen_move = []
-    #     for valid_move in valid_moves:
-    #         board_copy = copy.deepcopy(board)
-    #         move = Move(valid_move)
-    #         board_copy.play(move, self.color)
-    #         heuristic_value = heuristic_value(board_copy, self.color)
-    #         if(heuristic_value > heuristic):
-    #             heuristic = heuristic_value
-    #             chosen_move = move
 
 a_fix_for_globals_order = Heuristic1Player

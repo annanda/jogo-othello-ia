@@ -164,7 +164,7 @@ class TestMiniMax(unittest.TestCase):
     @patch('models.minimax_alfabeta.Move', Mock())
     def test_best_value_with_board_3_is_correct(self):
 
-        heuristic_values =  [12, 5, 25, 3, 5, 10, 1, 2]
+        heuristic_values = [12, 5, 25, 3, 5, 10, 1, 2]
         heuristic_function = Mock(side_effect=heuristic_values)
 
         depth = 3
@@ -186,7 +186,7 @@ class TestMiniMax(unittest.TestCase):
     @patch('models.minimax_alfabeta.Move', Mock())
     def test_best_value_with_board_3_is_correct_and_is_pruning(self):
 
-        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_values = [12, 5, 25, 5, 10]
         heuristic_function = Mock(side_effect=heuristic_values)
 
         depth = 3
@@ -208,14 +208,14 @@ class TestMiniMax(unittest.TestCase):
     @patch('models.minimax_alfabeta.Move', Mock())
     def test_heuristic_function_is_called_in_right_order(self):
 
-        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_values = [12, 5, 25, 5, 10]
         heuristic_function = Mock(side_effect=heuristic_values)
 
         depth = 3
 
         mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
 
-        best_value = mini_max.mini_max_alfa_beta(
+        mini_max.mini_max_alfa_beta(
             self.board_3,
             depth,
             'color',
@@ -236,14 +236,14 @@ class TestMiniMax(unittest.TestCase):
     @patch('models.minimax_alfabeta.Move', Mock(side_effect=lambda arg: arg))
     def test_if_minimax_sets_best_move_correctly(self):
 
-        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_values = [12, 5, 25, 5, 10]
         heuristic_function = Mock(side_effect=heuristic_values)
 
         depth = 3
 
         mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
 
-        best_value = mini_max.mini_max_alfa_beta(
+        mini_max.mini_max_alfa_beta(
             self.board_3,
             depth,
             'color',
@@ -257,7 +257,7 @@ class TestMiniMax(unittest.TestCase):
     @patch('models.minimax_alfabeta.Move', Mock(side_effect=lambda arg: arg))
     def test_if_minimax_sets_best_move_correctly_with_diff_heuristic_vals(self):
 
-        heuristic_values =  [2, 9, 11, 1, 20, 10, 5]
+        heuristic_values = [2, 9, 11, 1, 20, 10, 5]
         heuristic_function = Mock(side_effect=heuristic_values)
 
         depth = 3
