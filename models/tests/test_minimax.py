@@ -274,3 +274,25 @@ class TestMiniMax(unittest.TestCase):
         )
         expected_best_value = 12
         self.assertEqual(expected_best_value, best_value)
+
+    @patch('models.minimax_alfabeta.Move', Mock())
+    def test_best_value_with_board_3_is_correct_and_is_pruning(self):
+
+        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_function = Mock(side_effect=heuristic_values)
+
+        depth = 3
+
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+
+        best_value = mini_max.mini_max_alfa_beta(
+            self.board_3,
+            depth,
+            'color',
+            float('-inf'),
+            float('inf'),
+            True,
+            heuristic_function
+        )
+        expected_best_value = 12
+        self.assertEqual(expected_best_value, best_value)
