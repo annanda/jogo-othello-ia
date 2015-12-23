@@ -3,8 +3,9 @@ from models.move import Move
 
 class MiniMaxAlfaBeta(object):
 
-    def __init__(self):
+    def __init__(self, max_depth):
         self.chosen_move = None
+        self.max_depth = max_depth
 
     def mini_max_alfa_beta(self, board, depth, color, parent_alfa, parent_beta, max_gamer, heuristic_function):
         """
@@ -12,7 +13,6 @@ class MiniMaxAlfaBeta(object):
         if(depth == 0):
             heuristic_value = heuristic_function(board, color)
             return heuristic_value
-
 
         alfa = float('-inf')
         beta = float('inf')
@@ -32,7 +32,9 @@ class MiniMaxAlfaBeta(object):
                 heuristic_function
             )
             if max_gamer:
-                alfa = max(best_value, alfa)
+                if best_value > alfa:
+                    alfa = best_value
+                    best_move = move
                 my_best_value = alfa
                 if my_best_value > parent_beta:
                     break
@@ -42,8 +44,8 @@ class MiniMaxAlfaBeta(object):
                 if my_best_value < parent_alfa:
                     break
 
-            # self.chosen_move = valid_move
-
+        if depth == self.max_depth:
+            self.chosen_move = best_move
         return my_best_value
 
 

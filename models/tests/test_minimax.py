@@ -17,22 +17,6 @@ class TestMiniMax(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_should_call_heuristic_value_if_depth_0(self):
-        depth = 0
-        heuristic_function = lambda board, color: 'value'
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
-
-        result = mini_max.mini_max_alfa_beta(
-            'board',
-            depth,
-            'color',
-            'parent_alfa',
-            'parent_beta',
-            'max_gamer',
-            heuristic_function
-        )
-        expected_result = 'value'
-        self.assertEqual(expected_result, result)
 
     def _make_board_mock(self, name, clones, valid_moves):
         board = Mock()
@@ -114,6 +98,23 @@ class TestMiniMax(unittest.TestCase):
             ['move13', 'move14']
         )
 
+    def test_should_call_heuristic_value_if_depth_0(self):
+        depth = 0
+        heuristic_function = lambda board, color: 'value'
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(0)
+
+        result = mini_max.mini_max_alfa_beta(
+            'board',
+            depth,
+            'color',
+            'parent_alfa',
+            'parent_beta',
+            'max_gamer',
+            heuristic_function
+        )
+        expected_result = 'value'
+        self.assertEqual(expected_result, result)
+
     @patch('models.minimax_alfabeta.Move', Mock())
     def test_best_value_with_board_1_1_is_correct(self):
 
@@ -122,7 +123,7 @@ class TestMiniMax(unittest.TestCase):
 
         depth = 1
 
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(1)
 
         best_value = mini_max.mini_max_alfa_beta(
             self.board_1_1,
@@ -146,7 +147,7 @@ class TestMiniMax(unittest.TestCase):
 
         depth = 1
 
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(1)
 
         best_value = mini_max.mini_max_alfa_beta(
             self.board_1_1,
@@ -168,7 +169,7 @@ class TestMiniMax(unittest.TestCase):
 
         depth = 3
 
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
 
         best_value = mini_max.mini_max_alfa_beta(
             self.board_3,
@@ -190,7 +191,7 @@ class TestMiniMax(unittest.TestCase):
 
         depth = 3
 
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
 
         best_value = mini_max.mini_max_alfa_beta(
             self.board_3,
@@ -212,7 +213,7 @@ class TestMiniMax(unittest.TestCase):
 
         depth = 3
 
-        mini_max = minimax_alfabeta.MiniMaxAlfaBeta()
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
 
         best_value = mini_max.mini_max_alfa_beta(
             self.board_3,
@@ -231,3 +232,46 @@ class TestMiniMax(unittest.TestCase):
             mock_call(self.leaf_boards[5], 'color'),
         ]
         heuristic_function.assert_has_calls(calls_list, any_order=False)
+
+    @patch('models.minimax_alfabeta.Move', Mock(side_effect=lambda arg: arg))
+    def test_if_minimax_sets_best_move_correctly(self):
+
+        heuristic_values =  [12, 5, 25, 5, 10]
+        heuristic_function = Mock(side_effect=heuristic_values)
+
+        depth = 3
+
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
+
+        best_value = mini_max.mini_max_alfa_beta(
+            self.board_3,
+            depth,
+            'color',
+            float('-inf'),
+            float('inf'),
+            True,
+            heuristic_function
+        )
+        self.assertEqual(mini_max.chosen_move, 'move13')
+
+    @patch('models.minimax_alfabeta.Move', Mock(side_effect=lambda arg: arg))
+    def test_if_minimax_sets_best_move_correctly_with_diff_heuristic_vals(self):
+
+        heuristic_values =  [2, 9, 11, 1, 20, 10, 5]
+        heuristic_function = Mock(side_effect=heuristic_values)
+
+        depth = 3
+
+        mini_max = minimax_alfabeta.MiniMaxAlfaBeta(3)
+
+        best_value = mini_max.mini_max_alfa_beta(
+            self.board_3,
+            depth,
+            'color',
+            float('-inf'),
+            float('inf'),
+            True,
+            heuristic_function
+        )
+        self.assertEqual(best_value, 10)
+        self.assertEqual(mini_max.chosen_move, 'move14')

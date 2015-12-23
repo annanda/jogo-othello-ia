@@ -41,3 +41,5 @@ class Heuristic1Player(object):
     #         if(heuristic_value > heuristic):
     #             heuristic = heuristic_value
     #             chosen_move = move
+
+    # def chose_move(self):
