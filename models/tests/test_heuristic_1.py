@@ -1,5 +1,5 @@
 import unittest
-from models.players.heuristic_1_player import Heuristic1Player
+from models.players.heuristic_1_player import Heuristic1Player, heuristic_value
 from models.board import Board
 
 class TestHeuristic1(unittest.TestCase):
@@ -9,7 +9,7 @@ class TestHeuristic1(unittest.TestCase):
         board = Board(board_exemple)
         expected = 2
         heuristic = Heuristic1Player(board.BLACK)
-        value = heuristic.heuristic_value(board, board.BLACK)
+        value = heuristic_value(board, board.BLACK)
         self.assertEqual(expected, value)
 
 
@@ -30,7 +30,7 @@ class TestHeuristic1(unittest.TestCase):
         board = Board(board_exemple)
         expected = 4
         heuristic = Heuristic1Player(board.BLACK)
-        value = heuristic.heuristic_value(board, board.BLACK)
+        value = heuristic_value(board, board.BLACK)
         self.assertEqual(expected, value)
 
 
@@ -56,5 +56,5 @@ class TestHeuristic1(unittest.TestCase):
         board = Board(board_exemple)
         expected = 8
         heuristic = Heuristic1Player(board.WHITE)
-        value = heuristic.heuristic_value(board, board.WHITE)
+        value = heuristic_value(board, board.WHITE)
         self.assertEqual(expected, value)

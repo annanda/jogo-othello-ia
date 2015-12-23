@@ -10,18 +10,20 @@ class MiniMaxAlfaBeta(object):
     def mini_max_alfa_beta(self, board, depth, color, parent_alfa, parent_beta, max_gamer, heuristic_function):
         """
         """
-        if(depth == 0):
-            heuristic_value = heuristic_function(board, color)
-            return heuristic_value
+        valid_moves = board.valid_moves(color)
+
+        my_best_value = None
+        if depth == 0 or not valid_moves:
+            my_best_value = heuristic_function(board, color)
+            return my_best_value
 
         alfa = float('-inf')
         beta = float('inf')
         enemy_color = board._opponent(color)
-        valid_moves = board.valid_moves(color)
         for valid_move in valid_moves:
             board_copy = board.get_clone()
-            move = Move(valid_move)
-            board_copy.play(move, color)
+            # move = Move(valid_move)
+            board_copy.play(valid_move, color)
             best_value = self.mini_max_alfa_beta(
                 board_copy,
                 depth - 1,
@@ -34,7 +36,7 @@ class MiniMaxAlfaBeta(object):
             if max_gamer:
                 if best_value > alfa:
                     alfa = best_value
-                    best_move = move
+                    best_move = valid_move
                 my_best_value = alfa
                 if my_best_value > parent_beta:
                     break

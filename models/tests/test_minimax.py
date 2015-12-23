@@ -104,7 +104,7 @@ class TestMiniMax(unittest.TestCase):
         mini_max = minimax_alfabeta.MiniMaxAlfaBeta(0)
 
         result = mini_max.mini_max_alfa_beta(
-            'board',
+            self.board_3,
             depth,
             'color',
             'parent_alfa',
