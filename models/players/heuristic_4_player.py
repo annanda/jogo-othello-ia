@@ -12,7 +12,7 @@ class Heuristic4Player(object):
 
     def play(self, board):
         from models.minimax_alfabeta import MiniMaxAlfaBeta
-        from models.players.heuristics import heuristic4_value
+        from models.players.heuristics import heuristic_corners_captured
         depth = 3
         minimax = MiniMaxAlfaBeta(depth)
         minimax.mini_max_alfa_beta(
@@ -22,7 +22,7 @@ class Heuristic4Player(object):
             float('-inf'),
             float('inf'),
             True,
-            heuristic4_value
+            heuristic_corners_captured
         )
 
         return minimax.chosen_move

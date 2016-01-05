@@ -1,16 +1,18 @@
 # -*- coding: utf-8 -*-
 
 
-class Heuristic3Player(object):
-    """Implementa a herística que leva em conta a
-    quantidade de peças que cada um vai ter"""
+class Heuristic5Player(object):
+
+    """
+    Heuristica de stability
+    """
 
     def __init__(self, color):
         self.color = color
 
     def play(self, board):
         from models.minimax_alfabeta import MiniMaxAlfaBeta
-        from models.players.heuristics import heuristic_mobility
+        from models.players.heuristics import heuristic_stability
         depth = 3
         minimax = MiniMaxAlfaBeta(depth)
         minimax.mini_max_alfa_beta(
@@ -20,8 +22,7 @@ class Heuristic3Player(object):
             float('-inf'),
             float('inf'),
             True,
-            heuristic_mobility
+            heuristic_stability
         )
 
         return minimax.chosen_move
-
